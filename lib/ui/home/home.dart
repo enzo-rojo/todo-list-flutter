@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/ui/home/text_input.dart';
+import 'package:todo_list_flutter/widgets/accordion.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,6 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: const [
               TextInput(),
+              SizedBox(
+                height: 10,
+              ),
+              Accordion(title: 'Test', content: 'Test content')
             ],
           ),
         ),
