@@ -8,13 +8,11 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       textAlignVertical: TextAlignVertical.center,
+      style: const TextStyle(
+        fontSize: 16,
+      ),
       decoration: InputDecoration(
         hintText: 'New list',
-        // suffixIcon: IconButton(
-        //   onPressed: () => print('pressed'),
-        //   icon: const Icon(Icons.add),
-        //   splashRadius: 25,
-        // ),
         suffixIcon: Padding(
           padding: const EdgeInsets.only(
             right: 10,
