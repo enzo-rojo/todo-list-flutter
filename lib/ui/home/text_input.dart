@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextInput extends StatelessWidget {
   const TextInput({Key? key}) : super(key: key);
@@ -24,9 +25,11 @@ class TextInput extends StatelessWidget {
               Icons.add,
               size: 20,
             ),
-            label: const Text(
+            label: Text(
               'Add',
-              style: TextStyle(fontWeight: FontWeight.w500),
+              style: GoogleFonts.varelaRound(
+                fontWeight: FontWeight.w600,
+              ),
             ),
             style: TextButton.styleFrom(
               primary: const Color(0xFF666666),
@@ -36,9 +39,6 @@ class TextInput extends StatelessWidget {
             ),
           ),
         ),
-      ),
-      style: const TextStyle(
-        fontWeight: FontWeight.w500,
       ),
     );
   }
