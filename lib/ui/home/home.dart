@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list_flutter/ui/home/text_input.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,12 +11,24 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('To Do List'),
-      ),
-      body: const Center(
-        child: Text('Home Screen'),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFEFF6),
+        appBar: AppBar(
+          title: const Text(
+            'Lists',
+            style: TextStyle(fontSize: 25),
+          ),
+          elevation: 0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: const [
+              TextInput(),
+            ],
+          ),
+        ),
       ),
     );
   }
