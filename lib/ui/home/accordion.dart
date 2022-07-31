@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_flutter/ui/home/checkbox_input.dart';
 
 class Accordion extends StatefulWidget {
   final String title;
@@ -51,12 +52,17 @@ class _AccordionState extends State<Accordion> {
               maxHeight: _showContent ? 100 : 0,
             ),
             duration: const Duration(milliseconds: 300),
-            color: Colors.white,
             padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 15,
             ),
-            child: Text(widget.content),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CheckBoxInput(),
+                ],
+              ),
+            ),
           ),
         ),
       ],
