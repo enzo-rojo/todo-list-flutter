@@ -44,15 +44,21 @@ class _AccordionState extends State<Accordion> {
                 ),
               ],
             )),
-        _showContent
-            ? Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 15,
-                ),
-                child: Text(widget.content),
-              )
-            : Container(),
+        FractionallySizedBox(
+          widthFactor: 1,
+          child: AnimatedContainer(
+            constraints: BoxConstraints(
+              maxHeight: _showContent ? 100 : 0,
+            ),
+            duration: const Duration(milliseconds: 300),
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 15,
+            ),
+            child: Text(widget.content),
+          ),
+        ),
       ],
     );
   }
