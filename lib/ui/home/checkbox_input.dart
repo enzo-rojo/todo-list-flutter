@@ -2,14 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxInput extends StatefulWidget {
-  CheckBoxInput({Key? key}) : super(key: key);
+  String title;
+  bool isChecked;
+
+  CheckBoxInput({
+    Key? key,
+    required this.title,
+    required this.isChecked,
+  }) : super(key: key);
 
   @override
   State<CheckBoxInput> createState() => _CheckBoxInputState();
 }
 
 class _CheckBoxInputState extends State<CheckBoxInput> {
-  bool _checked = false;
+  String _title = 'New Item';
+  bool _isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _title = widget.title;
+    _isChecked = widget.isChecked;
+  }
+
   TextStyle isCheckedTextStyle = const TextStyle(
       fontSize: 16,
       decoration: TextDecoration.lineThrough,
@@ -28,11 +44,11 @@ class _CheckBoxInputState extends State<CheckBoxInput> {
             splashRadius: 13,
             shape: const CircleBorder(),
             tristate: true,
-            value: _checked,
+            value: _isChecked,
             activeColor: const Color.fromARGB(255, 0, 0, 0),
             onChanged: (bool? value) {
               setState(() {
-                _checked = !_checked;
+                _isChecked = !_isChecked;
               });
             },
           ),
@@ -40,12 +56,14 @@ class _CheckBoxInputState extends State<CheckBoxInput> {
         Expanded(
           child: TextField(
             textAlignVertical: TextAlignVertical.center,
-            style: _checked ? isCheckedTextStyle : isNotCheckedTextStyle,
-            decoration: const InputDecoration(
+            style: _isChecked ? isCheckedTextStyle : isNotCheckedTextStyle,
+            decoration: InputDecoration(
               filled: false,
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              hintText: 'New list',
+              enabledBorder:
+                  const OutlineInputBorder(borderSide: BorderSide.none),
+              focusedBorder:
+                  const OutlineInputBorder(borderSide: BorderSide.none),
+              hintText: _title,
             ),
           ),
         ),
