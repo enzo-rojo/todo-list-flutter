@@ -10,32 +10,52 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _keyboardVisible = false;
+
   @override
   Widget build(BuildContext context) {
+    _keyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xFFFFEFF6),
-        appBar: AppBar(
-          title: const Text(
-            'Lists',
-            style: TextStyle(fontSize: 25),
-          ),
-          elevation: 0,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: const [
-              TextInput(),
-              SizedBox(
-                height: 10,
-              ),
-              Accordion(title: 'Test', content: 'Test content'),
-              SizedBox(
-                height: 10,
-              ),
-              Accordion(title: 'Test', content: 'Test content')
+      child: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scaffold(
+          backgroundColor: const Color(0xFFFFEFF6),
+          appBar: AppBar(
+            title: const Text(
+              'Lists',
+              style: TextStyle(fontSize: 25),
+            ),
+            elevation: 0,
+            actions: [
+              _keyboardVisible
+                  ? TextButton(
+                      onPressed: () {
+                        print("pressed");
+                      },
+                      child: const Text('OK'),
+                    )
+                  : const Text(''),
             ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: const [
+                  TextInput(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Accordion(title: 'Test', content: 'Test content'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Accordion(title: 'Test', content: 'Test content')
+                ],
+              ),
+            ),
           ),
         ),
       ),
