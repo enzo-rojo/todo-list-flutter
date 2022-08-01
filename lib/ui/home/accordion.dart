@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_flutter/ui/home/add_list_item.dart';
 import 'package:todo_list_flutter/ui/home/checkbox_input.dart';
 
 class Accordion extends StatefulWidget {
@@ -58,8 +59,13 @@ class _AccordionState extends State<Accordion> {
             ),
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CheckBoxInput(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  AddListItem(),
                 ],
               ),
             ),
