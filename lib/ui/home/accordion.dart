@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:todo_list_flutter/models/item_list_model.dart';
+import 'package:todo_list_flutter/models/list_model.dart';
 import 'package:todo_list_flutter/ui/home/add_list_item.dart';
 import 'package:todo_list_flutter/ui/home/checkbox_input.dart';
 
 class Accordion extends StatefulWidget {
   final String title;
-  final String content;
+  final List<ItemListModel> content;
 
   const Accordion({Key? key, required this.title, required this.content})
       : super(key: key);
@@ -16,6 +18,20 @@ class Accordion extends StatefulWidget {
 
 class _AccordionState extends State<Accordion> {
   bool _showContent = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  ListModel list = ListModel(
+    name: 'FirstList',
+    itemList: <ItemListModel>[
+      ItemListModel(title: 'First item', isChecked: false),
+      ItemListModel(title: 'Second item', isChecked: true),
+      ItemListModel(title: 'Third item', isChecked: false),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +66,9 @@ class _AccordionState extends State<Accordion> {
           widthFactor: 1,
           child: AnimatedContainer(
             constraints: BoxConstraints(
-              maxHeight: _showContent ? 100 : 0,
+              maxHeight: _showContent ? 2000 : 0,
             ),
-            duration: const Duration(milliseconds: 300),
+            duration: Duration(milliseconds: _showContent ? 700 : 200),
             padding: const EdgeInsets.symmetric(
               vertical: 15,
               horizontal: 15,
@@ -61,8 +77,17 @@ class _AccordionState extends State<Accordion> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CheckBoxInput(),
-                  SizedBox(
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: ((context, index) {
+                      return CheckBoxInput(
+                        title: widget.content[index].title,
+                        isChecked: widget.content[index].isChecked,
+                      );
+                    }),
+                    itemCount: widget.content.length,
+                  ),
+                  const SizedBox(
                     height: 5,
                   ),
                   AddListItem(),
