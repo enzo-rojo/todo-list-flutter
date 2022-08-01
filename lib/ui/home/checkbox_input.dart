@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxInput extends StatefulWidget {
   CheckBoxInput({Key? key}) : super(key: key);
@@ -36,10 +37,17 @@ class _CheckBoxInputState extends State<CheckBoxInput> {
             },
           ),
         ),
-        const SizedBox(width: 5),
-        Text(
-          'Test',
-          style: _checked ? isCheckedTextStyle : isNotCheckedTextStyle,
+        Expanded(
+          child: TextField(
+            textAlignVertical: TextAlignVertical.center,
+            style: _checked ? isCheckedTextStyle : isNotCheckedTextStyle,
+            decoration: const InputDecoration(
+              filled: false,
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+              hintText: 'New list',
+            ),
+          ),
         ),
       ],
     );
