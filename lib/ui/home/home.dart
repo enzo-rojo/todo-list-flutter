@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list_flutter/services/user_service.dart';
 import 'package:todo_list_flutter/ui/home/text_input.dart';
 import 'package:todo_list_flutter/ui/home/accordion.dart';
 
@@ -13,8 +15,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Auth
+
+  final UserService _userService = UserService();
+  String? _uid;
   bool _keyboardVisible = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Set Uid
+    _userService.auth().then((value) {
+      setState(() {
+        _uid = value;
+      });
+    });
+  }
+
+  // Build Lists
   List<ListModel> lists = <ListModel>[
     ListModel(
       name: 'FirstList',
@@ -88,7 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const TextInput(),
+                  TextInput(
+                    userId: _uid,
+                  ),
                   const SizedBox(height: 10),
                   buildList(),
                 ],
