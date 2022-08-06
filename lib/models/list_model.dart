@@ -8,4 +8,9 @@ class ListModel {
     required this.name,
     required this.itemList,
   });
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "itemList": itemList,
+      };
 }
