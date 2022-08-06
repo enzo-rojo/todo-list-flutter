@@ -187,4 +187,13 @@ fabric.properties
 # Ignore code-workspaces
 *.code-workspace
 
+/web 
+
+google-services.json
+
+firebase_app_id_file.json
+
+firebase_options.dart
+
+GoogleService-Info.plist
 # End of https://www.toptal.com/developers/gitignore/api/flutter,visualstudiocode,intellij+all,firebase
