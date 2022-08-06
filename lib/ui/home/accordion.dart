@@ -7,7 +7,7 @@ import 'package:todo_list_flutter/ui/home/checkbox_input.dart';
 
 class Accordion extends StatefulWidget {
   final String title;
-  final List<ItemListModel> content;
+  final List<dynamic> content; // TODO : change type to ItemListModel
 
   const Accordion({Key? key, required this.title, required this.content})
       : super(key: key);
@@ -23,15 +23,6 @@ class _AccordionState extends State<Accordion> {
   void initState() {
     super.initState();
   }
-
-  ListModel list = ListModel(
-    name: 'FirstList',
-    itemList: <ItemListModel>[
-      ItemListModel(title: 'First item', isChecked: false),
-      ItemListModel(title: 'Second item', isChecked: true),
-      ItemListModel(title: 'Third item', isChecked: false),
-    ],
-  );
 
   @override
   Widget build(BuildContext context) {

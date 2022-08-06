@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/services/user_service.dart';
@@ -33,47 +34,25 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  // Build Lists
-  List<ListModel> lists = <ListModel>[
-    ListModel(
-      name: 'FirstList',
-      itemList: <ItemListModel>[
-        ItemListModel(title: 'First item 1', isChecked: false),
-        ItemListModel(title: 'Second item 1', isChecked: true),
-        ItemListModel(title: 'Third item 1', isChecked: false),
-      ],
-    ),
-    ListModel(
-      name: 'SecondList',
-      itemList: <ItemListModel>[
-        ItemListModel(title: 'First item 2', isChecked: true),
-        ItemListModel(title: 'Second item 2', isChecked: true),
-        ItemListModel(title: 'Third item 2', isChecked: false),
-      ],
-    ),
-    ListModel(
-      name: 'ThirdList',
-      itemList: <ItemListModel>[
-        ItemListModel(title: 'First item 3', isChecked: false),
-        ItemListModel(title: 'Second item 3', isChecked: false),
-        ItemListModel(title: 'Third item 3', isChecked: false),
-      ],
-    ),
-  ];
-
-  buildList() {
+  listBuilder(list) {
     return ListView.separated(
       shrinkWrap: true,
-      itemCount: lists.length,
+      itemCount: list.length,
       separatorBuilder: ((context, index) => const SizedBox(height: 10)),
       itemBuilder: ((context, index) {
         return Accordion(
-          title: lists[index].name,
-          content: lists[index].itemList,
+          title: list[index].name,
+          content: list[index].itemList,
         );
       }),
     );
   }
+
+  Stream<List<ListModel>> readLists() => FirebaseFirestore.instance
+      .collection('users/$_uid/lists')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => ListModel.fromJson(doc.data())).toList());
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +90,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     userId: _uid,
                   ),
                   const SizedBox(height: 10),
-                  buildList(),
+                  StreamBuilder<List<ListModel>>(
+                    stream: readLists(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Something went wrong! ${snapshot.error}');
+                      } else if (snapshot.hasData) {
+                        final lists = snapshot.data!;
+
+                        return listBuilder(lists);
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }),
+                  )
                 ],
               ),
             ),

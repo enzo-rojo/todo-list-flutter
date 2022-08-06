@@ -13,9 +13,8 @@ class TextInput extends StatelessWidget {
 
   Future createList({required String name}) async {
     // Reference to document
-    final docUser = FirebaseFirestore.instance
-        .collection('users/$userId/lists')
-        .doc('test-id');
+    final docUser =
+        FirebaseFirestore.instance.collection('users/$userId/lists').doc();
 
     final list = ListModel(
       name: name,
