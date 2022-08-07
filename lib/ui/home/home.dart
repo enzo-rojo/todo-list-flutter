@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
       separatorBuilder: ((context, index) => const SizedBox(height: 10)),
       itemBuilder: ((context, index) {
         return Accordion(
+          listId: list[index].id,
+          userId: _uid,
           title: list[index].name,
           content: list[index].itemList,
         );
@@ -51,8 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Stream<List<ListModel>> readLists() => FirebaseFirestore.instance
       .collection('users/$_uid/lists')
       .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => ListModel.fromJson(doc.data())).toList());
+      .map((snapshot) => snapshot.docs
+          .map((doc) => ListModel.fromJson(doc.data(), doc.id))
+          .toList());
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Text('Something went wrong! ${snapshot.error}');
                       } else if (snapshot.hasData) {
                         final lists = snapshot.data!;
-
                         return listBuilder(lists);
                       } else {
                         return const Center(child: CircularProgressIndicator());
