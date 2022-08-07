@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list_flutter/services/user_service.dart';
 import 'package:todo_list_flutter/ui/home/text_input.dart';
 import 'package:todo_list_flutter/ui/home/accordion.dart';
-
-import '../../models/item_list_model.dart';
 import '../../models/list_model.dart';
 
 class HomeScreen extends StatefulWidget {
