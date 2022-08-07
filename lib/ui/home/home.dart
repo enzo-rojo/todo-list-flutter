@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list_flutter/models/item_list_model.dart';
 import 'package:todo_list_flutter/services/user_service.dart';
 import 'package:todo_list_flutter/ui/home/text_input.dart';
 import 'package:todo_list_flutter/ui/home/accordion.dart';
@@ -37,11 +38,22 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: list.length,
       separatorBuilder: ((context, index) => const SizedBox(height: 10)),
       itemBuilder: ((context, index) {
+        // Convert List<dynamic> to List<Map<String, dynamic>>
+        List<Map<String, dynamic>> jsonList =
+            List<Map<String, dynamic>>.generate(
+          list[index].itemList.length,
+          (int index) =>
+              Map<String, dynamic>.from(list[index].itemList.elementAt(index)),
+        );
+
+        // Convert List<Map<String, dynamic>> to List<ItemListModel>
+        List<ItemListModel> itemList = ItemListModel.fromJsonList(jsonList);
+
         return Accordion(
           listId: list[index].id,
           userId: _uid,
           title: list[index].name,
-          content: list[index].itemList,
+          content: itemList,
         );
       }),
     );
