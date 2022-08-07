@@ -79,6 +79,8 @@ class _AccordionState extends State<Accordion> {
                     shrinkWrap: true,
                     itemBuilder: ((context, index) {
                       return CheckBoxInput(
+                        userId: widget.userId,
+                        listId: widget.listId,
                         title: widget.content[index].title,
                         isChecked: widget.content[index].isChecked,
                       );
