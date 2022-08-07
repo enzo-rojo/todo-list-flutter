@@ -17,6 +17,7 @@ class TextInput extends StatelessWidget {
         FirebaseFirestore.instance.collection('users/$userId/lists').doc();
 
     final list = ListModel(
+      id: "",
       name: name,
       itemList: [],
     );

@@ -6,10 +6,17 @@ import 'package:todo_list_flutter/ui/home/add_list_item.dart';
 import 'package:todo_list_flutter/ui/home/checkbox_input.dart';
 
 class Accordion extends StatefulWidget {
+  final String listId;
+  final String? userId;
   final String title;
   final List<dynamic> content; // TODO : change type to ItemListModel
 
-  const Accordion({Key? key, required this.title, required this.content})
+  const Accordion(
+      {Key? key,
+      required this.listId,
+      required this.userId,
+      required this.title,
+      required this.content})
       : super(key: key);
 
   @override
@@ -81,7 +88,7 @@ class _AccordionState extends State<Accordion> {
                   const SizedBox(
                     height: 5,
                   ),
-                  AddListItem(),
+                  AddListItem(listId: widget.listId, userId: widget.userId),
                 ],
               ),
             ),
