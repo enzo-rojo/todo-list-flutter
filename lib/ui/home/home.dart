@@ -42,8 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
         List<Map<String, dynamic>> jsonList =
             List<Map<String, dynamic>>.generate(
           list[index].itemList.length,
-          (int index) =>
-              Map<String, dynamic>.from(list[index].itemList.elementAt(index)),
+          (int i) =>
+              Map<String, dynamic>.from(list[index].itemList.elementAt(i)),
         );
 
         // Convert List<Map<String, dynamic>> to List<ItemListModel>
